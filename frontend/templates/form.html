@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <!-- CSS only -->
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>
+        body{
+            background-image: '';
+            background-position:center ;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg nav-dark">
+        <div class="container-fluid">
+    
+            <a class="navbar-brand" href="">
+                <img src="https://www.canva.com/design/DAFItbPH5fY/KFYP4B-UOHPDrbRowGKqtw/view?utm_content=DAFItbPH5fY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" alt="my-logo" height="70px" width="70px" class="img-fluid">
+            </a>
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+                
+               <div class="collapse navbar-collapse" id="navbarNav">
+    
+                   <ul class="navbar-nav ms-auto">
+                    <li style="color: black;" class="nav-item">
+                        <a href="{% url 'todos_page' %}" class="nav-link ">Home</a>
+                      </li>
+    
+                      <li  class="nav-item">
+                        <a style="color:white;background-color: black;" href="{% url 'todos_page' %}" class="nav-link">todo</a>
+    
+                      </li>
+    
+                      <li style="color: black;"class="nav-item">
+                        <a href="" class="nav-link">Contact</a>
+                      </li>
+
+                      <li style="color: black;"class="nav-item">
+                        <a href="" class="nav-link">About</a>
+                      </li>
+            
+                   </ul>
+                    
+                </div>
+        </div>         
+      </nav>
+
+<div class="container-fluid">
+    <div class="row d-flex flex-row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                 <h1>Add Task</h1>
+
+                 <form action ="{% url 'form_page' %}" method="POST">
+
+                    {% csrf_token %}
+                    <label for="title">Title</label><br>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter your first name">
+    
+                    <label for="description" class="mt-2">Description</label><br>
+                    <textarea id="description"name="description"class="form-control"  placeholder="Enter your email"></textarea>
+    
+                    <label for="due date"class="mt-2">Due_date</label><br>
+                    <input type="datetime-local" id="due_date" name="due_date"class="due_date form-control" placeholder="">
+    
+                    <input class="btn btn-primary mt-2" type="submit" value="Submit">
+    
+    
+                    <a href="{% url 'todos_page'%}" class="btn btn-secondary mt-2">Go to todos</a>
+    
+                 </form>
+                </div>
+          </div>
+        </div>
+    </div>
+</div>    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+ 
+</body>
+
+</html>
