@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Mukta:wght@300&family=Smooch&display=swap');
+
+body{
+    
+    height:100vh;
+    background-color: black;
+    background-image: url('');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+h1{
+     font-family:'Cormorant Garamond', serif; ;
+}
+
+.banner{
+    position: relative;
+    right: 0;
+}
+
+.nav-item{
+    justify-content: space-around;
+}

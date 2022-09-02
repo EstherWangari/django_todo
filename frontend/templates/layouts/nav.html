@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg nav-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="">
+            <img src="" alt="">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bstarget="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li style="color:black ;"class="nav-item">
+                    <a href="{% url 'Index.html'%}" class="nav-link">Home</a>
+                </li>
+
+                <li style="color:black ;" class="nav-item">
+                    <a href="{% url 'Login.html' %}" class="nav-link">Login</a>
+                </li>
+
+                <li style="color:black ;"class="nav-item">
+                    <a href="{% url 'Form.html'%}" class="nav-link">Form</a>
+                </li>
+
+                <li style="color:black ;"class="nav-item">
+                    <a href="{% url 'Todos.html'%}" class="nav-link">Todos</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
