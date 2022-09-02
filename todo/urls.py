@@ -16,14 +16,14 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path
-from frontend.views import form,todos,Index,Login , info, staff ,forms
+from frontend.views import form,todos,index,login , info, staff ,forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/',form, name="form_page"),
-    path('' ,todos , name="todos_page"),
-    path('index/', Index, name="Index_page"),
-    path('login/' , Login , name="Login_page"),
+    path('' ,index, name="index_page"),
+    path('todos/', todos, name="todos_page"),
+    path('login/' , login , name="login_page"),
     path('info/' , info, name="info_page"),
     path('staff/' , staff , name="staff_page"),
     path('forms/' , forms , name="forms_page")

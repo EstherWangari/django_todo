@@ -23,11 +23,11 @@ def form(request):
 
         return HttpResponse ("Form submitted by" + title)
 
-def Index(request):
-    return render (request , "Index.html" , {})
+def index(request):
+    return render (request , "index.html" , {})
 
-def Login (request):
-    return render (request , "Login.html" , {} )
+def login (request):
+    return render (request , "registration/login.html" , {} )
 
 def info(request):
     return render (request , "info.html" , {})
