@@ -1,12 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
 
-
-def todos(request):
-    return render (request , "todos.html", {})
+def mains(request):
+    return render (request , "main.html", {})
 
 
 def form(request):
@@ -27,10 +27,24 @@ def index(request):
     return render (request , "index.html" , {})
 
 def login (request):
-    return render (request , "registration/login.html" , {} )
+        
+    name = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, name=username, password=password);user
 
-def info(request):
-    return render (request , "info.html" , {})
+    if user is not None:
+         name = request.POST['username']
+         password = request.POST['password']
+         user = authenticate(request, name=username, password=password);user
+
+    login(request, user)
+         # Redirect to a success page....
+         # Return an 'invalid login' error message. ...
+
+    return render (request , "login.html" , {} )
+
+def complete(request):
+    return render (request , "complete.html" , {})
 
 def staff (request):
     return render (request ,"staff.html" , {} )
@@ -38,6 +52,19 @@ def staff (request):
 def forms(request):
     return render (request , "forms.html" , {})
 
+def todos(request):
+    return render (request , "todos.html", {})
 
+def task_form(request):
+    return render (request , "task_form" , {})
+
+def complete_blog (request):
+    return render (request , "complete_blog" , {})
+
+def complete_bowl(request):
+    return render (request , "complete_bowl" , {})
+
+def complete_manage (request):
+    return render (request , "complete_manage" , {})
 
  

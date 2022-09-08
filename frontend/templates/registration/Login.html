@@ -11,9 +11,13 @@
                 <div class="card-body">
                         <h1 class="">Login</h1>  
                         
-                  <form action="" method="POST">
+                  <form action="{% url 'login.handler'%}" method="POST" class="#commentForm">
 
                     {% csrf_token %}
+
+                    {% if category%}
+                    <input type="hidden" name="id" value="{{category.id}}">
+                    {% endif %}
 
                     <div class="mb-3">
                         <label for="username" class="text-info">Username:</label><br>
@@ -29,19 +33,41 @@
                     <button type="submit" class="btn btn-info">Submit</button>
                   </form>
                         
-                    
-                       
-            
                 </div>
-            
 
-           
         </div>
 
-       
-        
     </div>
 </div>
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+        
+        $(document).ready(function(){
+            $("#commentForm") . submit(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    dataType:"json",
+                    data : $("#commentForm") . serialize() , //This changes the form data into json format
+                    url: "{% url '' %}",
+                    method : "POST",
+                    success : function(data){
+                        window.location.reload ();
+                    },
+                    error: function (data){
+                        console.log(data)
+                    }
+                });
+            });
+        });
+    
+</script>
+
 
 
 {% endblock %}

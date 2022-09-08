@@ -16,16 +16,23 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path
-from frontend.views import form,todos,index,login , info, staff ,forms
+from frontend.views import form,mains,index,login ,todos, staff ,forms ,complete, task_form,complete_bowl,complete_blog,complete_manage
+from django.contrib.auth import authenticate, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/',form, name="form_page"),
     path('' ,index, name="index_page"),
-    path('todos/', todos, name="todos_page"),
+    path('todos/', mains, name="mains_page"),
     path('login/' , login , name="login_page"),
-    path('info/' , info, name="info_page"),
+    path('complete/', complete , name ="complete_page"),
     path('staff/' , staff , name="staff_page"),
-    path('forms/' , forms , name="forms_page")
+    path('forms/' , forms , name="forms_page"),
+    path('task/form' , task_form , name="task.form"),
+    path('complete/bowl' , complete_bowl, name="complete.bowl"),
+    path('complete/blog' , complete_blog, name="complete.blog"),
+    path('complete/bowl' , complete_manage, name="complete.manage"),
+
+
     
 ]
