@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import CreateView , UpdateView
+
+from frontend.models import Task
 
 # Create your views here.
 
@@ -44,7 +47,21 @@ def login (request):
     return render (request , "login.html" , {} )
 
 def complete(request):
-    return render (request , "complete.html" , {})
+    todos= Task.objects.filter(complete=True)
+    context = {
+        "todos" : todos
+
+    }
+
+    return render (request , "complete.html" , context)
+
+def pending (request):
+    todos = Task.objects.filter (complete= False )
+    context = {
+        "todos" : todos
+    }
+
+    return render (request , "complete.html" , context)
 
 def staff (request):
     return render (request ,"staff.html" , {} )
@@ -66,5 +83,27 @@ def complete_bowl(request):
 
 def complete_manage (request):
     return render (request , "complete_manage" , {})
+
+
+def task_details (request , id ):
+    task = Task.objects.filter( pk=id ).first()
+    context={
+        "task" : task
+
+    }
+
+    return render (request , "task_details.html" , context)
+
+class TaskCreate(CreateView):
+    model = Task
+    template_name = "task_form.html"
+    fields=["title" , "description" , "due_date", "priority"]
+    success_url = "/pending"
+
+class TaskUpdate(UpdateView):
+    model = Task
+    template_name = "task_form.html"
+    fields=["title" , "description" , "due_date", "priority" ]
+    success_url = "/pending"
 
  

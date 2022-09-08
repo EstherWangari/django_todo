@@ -6,34 +6,14 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{% url 'category.form.handler'%}" method="post">
+        <form  method="post">
 
             {% csrf_token %}
 
-            {% if category%}
-            <input type="hidden" name="id" value="{{category.id}}">
-            {% endif %}
+         {{form.as_p}}
 
 
-            <div class="mb-3">
-                <label>Name:</label>
-                <input type="text" class="form-control" name="name" value="{{category.name}}">
-            </div>
-
-            <div class="mb-3">
-                <label>Description:</label>
-                <input type="text" class="form-control" name="name" value="{{category.name}}">
-            </div>
-
-            <div class="mb-3">
-                <label>Due Date:</label>
-                <input type="text" class="form-control" name="name" value="{{category.name}}">
-            </div>
-
-            <div class="mb-3">
-                <label>Priority:</label>
-                <input type="text" class="form-control" name="name" value="{{category.name}}">
-            </div>
+            
 
 
             <button class="btn btn-secondary" type="submit">Submit</button>

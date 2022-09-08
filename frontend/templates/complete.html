@@ -2,11 +2,9 @@
 
 {% block content %}
 
-
-
 <div class="card">
     <h1>Tasks</h1>
-    <a href="{% url 'task_form' %}"><button class="btn btn-outline-secondary btn-sm">Create</button></a>
+    <a href="{% url 'task.form' %}"><button class="btn btn-outline-secondary btn-sm">Create</button></a>
     <hr>
 
     <div class="card-body">
@@ -20,26 +18,21 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <h3><td>Grocery Shopping</td></h3>
-                    <h3><td><button class="btn btn-secondary btn-sm"><a href="{% url 'complete_manage.html' %}"></a></button></td>View</h3>
 
-                </tr>
+           {% for todo in todos %}
 
-                <tr>
-                    <td>2</td>
-                    <h3><td>Go bowling</td></h3>
-                    <h3><td><button class="btn btn-secondary btn-sm"><a href="{% url 'complete_bowl.html' %}"></a></button></td>View</h3>
 
-                </tr>
+           <tr>
 
-                <tr>
-                    <td>3</td>
-                    <h3><td>Visiting Paris</td></h3>
-                    <h3><td><button class="btn btn-secondary btn-sm"><a href="{% url 'complete_blog.html' %}"></a></button></td>View</h3>
+            <td>{{ todo.id }}</td>
+            <td>{{ todo.title}}</td>
+            <td>{{todo.due_date}}</td>
+            <td><a href="{% url 'task.details' todo.id %}"class="btn btn-secondary btn-sm">Details</a></td>
 
-                </tr>
+        </tr>
+           {% endfor %}
+
+         
             </tbody>
         </table>
      

@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% include 'layouts/sidebar.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <h1>To Do: {{task.title}}</h1>
+
+            <div class="mt-3">Description :</div>
+            
+            <small>{{task.description}}</small>
+
+            
+        </div>
+
+        <h6 class="mt-4">Due date: {{task.due_date| date:"d, M Y"}}</h6>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
