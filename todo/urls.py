@@ -16,15 +16,14 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path
-from frontend.views import TaskCreate, form,mains,index,login ,todos, staff ,forms ,complete, task_form,task_details,pending
-from django.contrib.auth import authenticate, login
+from frontend.views import TaskCreate, form,mains,index,login_user ,todos, staff ,forms ,complete, task_form,task_details,pending
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/',form, name="form_page"),
     path('' ,index, name="index_page"),
     path('todos/', mains, name="mains_page"),
-    path('login/' , login , name="login_page"),
+    path('login/' , login_user , name="login_page"),
     path('complete/', complete , name ="complete"),
     path('staff/' , staff , name="staff_page"),
     path('forms/' , forms , name="forms_page"),

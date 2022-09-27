@@ -1,9 +1,11 @@
 from dataclasses import fields
 from pyexpat import model
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.views.generic.edit import CreateView , UpdateView 
+from django.views.generic.edit import CreateView , UpdateView
+from django.contrib.auth.models import User
+
 
 from frontend.models import Task
 
@@ -31,22 +33,25 @@ def form(request):
 def index(request):
     return render (request , "index.html" , {})
 
-def login (request):
+def login_user (request):
+
+    if request.method == "GET":
+        return render(request , "registration/Login.html" , {} )
         
     name = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request, name=username, password=password);user
+    user = authenticate(request, username=name, password=password);
 
-    if user is not None:
-         name = request.POST['username']
-         password = request.POST['password']
-         user = authenticate(request, name=username, password=password);user
+    if not user:
+        message = "User not authenticated. Please make sure you are using the correct credentials. Or register the user."
+        print("Back to login page: "+message)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     login(request, user)
          # Redirect to a success page....
          # Return an 'invalid login' error message. ...
 
-    return render (request , "login.html" , {} )
+    return render (request , "complete.html" , {} )
 
 def complete(request):
     todos= Task.objects.filter(complete=True)
