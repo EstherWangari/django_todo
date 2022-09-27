@@ -17,8 +17,6 @@ from unicodedata import name
 from django.contrib import admin
 from django.urls import path
 from frontend.views import TaskCreate, form,mains,index,login ,todos, staff ,forms ,complete, task_form,task_details,pending
-
-
 from django.contrib.auth import authenticate, login
 
 urlpatterns = [
@@ -33,9 +31,5 @@ urlpatterns = [
     path('task/form' , TaskCreate.as_view() , name="task.form"),
     path('pending/' , pending , name="pending"),
     path('task/details/<id>' , task_details , name="task.details"),
-    
-
-
-
     
 ]

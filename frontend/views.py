@@ -1,7 +1,9 @@
+from dataclasses import fields
+from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.views.generic.edit import CreateView , UpdateView
+from django.views.generic.edit import CreateView , UpdateView 
 
 from frontend.models import Task
 
@@ -50,7 +52,6 @@ def complete(request):
     todos= Task.objects.filter(complete=True)
     context = {
         "todos" : todos
-
     }
 
     return render (request , "complete.html" , context)
@@ -89,21 +90,28 @@ def task_details (request , id ):
     task = Task.objects.filter( pk=id ).first()
     context={
         "task" : task
-
     }
 
-    return render (request , "task_details.html" , context)
+    if task is complete:
+        task.save()
+        return render('task_details.html')
+
+    if request.method =="POST":
+        task = TaskUpdate(request.POST,instance=task)
+        return render (request , "task_details.html" , context)
+    
+    return render(request , "task_details.html" , {})
 
 class TaskCreate(CreateView):
     model = Task
     template_name = "task_form.html"
-    fields=["title" , "description" , "due_date", "priority"]
+    fields=["title" , "description", "due_date", "priority"]
     success_url = "/pending"
+
 
 class TaskUpdate(UpdateView):
     model = Task
-    template_name = "task_form.html"
-    fields=["title" , "description" , "due_date", "priority" ]
+    template_name = "task_details.html"
+    fields=["complete"]
     success_url = "/pending"
 
- 
