@@ -2,12 +2,15 @@ from dataclasses import fields
 from pyexpat import model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-from django.views.generic.edit import CreateView , UpdateView
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login 
+from django.views.generic.edit import CreateView , UpdateView 
+from django.contrib.auth.models import User 
+from django.db import models 
+from django.contrib import messages
 
 
-from frontend.models import Task
+
+from frontend.models import Task 
 
 # Create your views here.
 
@@ -38,36 +41,115 @@ def login_user (request):
     if request.method == "GET":
         return render(request , "registration/Login.html" , {} )
         
+    
     name = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request, username=name, password=password);
+    user = authenticate(request, username=name, password=password)
 
     if not user:
         message = "User not authenticated. Please make sure you are using the correct credentials. Or register the user."
-        print("Back to login page: "+message)
+        messages.info (request , message)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     login(request, user)
          # Redirect to a success page....
          # Return an 'invalid login' error message. ...
 
-    return render (request , "complete.html" , {} )
+    return HttpResponseRedirect("/pending")
+
+
 
 def complete(request):
+    ##  You will need to get the todos belonging to a particular user. 
+    # We can get the user through the request. 
+    # After accessing the user, then we add a condition into the filter of Task.objects.filter(complete=True, ....additional condition for user)
+
+ 
     todos= Task.objects.filter(complete=True)
+
+    if request.method == "POST":
+        if "Add_task" in request.POST:
+            title = request.POST["description"]
+            due_date = str(request.POST["due_date"])
+            id = request.POST["id_select"]
+            category = request.POST["category_select"]
+
+
+            content = title + " -- " + due_date + " " + id
+            Todo = Task( user= request.user, title=title, content=content, due_date=due_date, id=id,
+            category=category.objects.get(name=category))
+            Todo.save()
+
+            return HttpResponseRedirect("/complete")
+
     context = {
         "todos" : todos
     }
 
-    return render (request , "complete.html" , context)
+    return render (request , "complete.html" , {"todos": todos} )
 
 def pending (request):
     todos = Task.objects.filter (complete= False )
+
+    if request.method == "POST":
+        if "Add_task" in request.POST:
+            title = request.POST["description"]
+            due_date = str(request.POST["due_date"])
+            category = request.POST["category_select"]
+
+
+            content = title + " -- " + due_date + " " 
+            Todo = Task(title=title, content=content, due_date=due_date, category=category.objects.get(name=category))
+            Todo.save()
+
+            return HttpResponseRedirect("/pending")
     context = {
         "todos" : todos
     }
 
     return render (request , "complete.html" , context)
+
+def register(request):
+    
+    if request.method=="GET":
+
+        return render (request , "register.html" , {})
+
+    else :
+        username = request.POST['username']  
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm = request.POST.get('confirm_password')
+
+        ##Check if username or email exists
+        user_exists = User.objects.filter(username__iexact = username)
+        if user_exists:
+
+            messages.info(request, 'Username already exists.')
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+        email_exists = User.objects.filter(email__iexact = email)
+        if email_exists:
+
+            messages.info(request, 'Email already exists.')
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+        if password != confirm :
+            messages.info(request , 'Passwords do not match.')
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+        user = User.objects.create_user(username , email , password)
+
+        login(request, user)
+                # Redirect to a success page....
+                # Return an 'invalid login' error message. ...
+
+        return HttpResponseRedirect("/pending")
+
+
 
 def staff (request):
     return render (request ,"staff.html" , {} )
@@ -97,15 +179,43 @@ def task_details (request , id ):
         "task" : task
     }
 
-    if task is complete:
-        task.save()
-        return render('task_details.html')
-
     if request.method =="POST":
         task = TaskUpdate(request.POST,instance=task)
         return render (request , "task_details.html" , context)
     
-    return render(request , "task_details.html" , {})
+    return render(request , "task_details.html" , context)
+
+def update_task_status(request, id):
+    #1. Get the task
+    #2. Check whether task is complete or not
+    #3. If not complete change from pending to complete (task.complete = True)
+    #4. Save the updated task (task.save())
+    #5. Redirect someone to the complete view
+
+    ##Here we are getting the task from the Database using the ID.
+    task = Task.objects.filter(pk=id).first()
+
+    ## Here we add the task to the context variable
+    context = {
+        "task" : task
+    }
+
+    ## If task is not complete: This condition should allow us to change the complete status of the task
+    if task.complete != True :
+        task.complete = True
+        ## Updated task should be saved
+        task.save()
+        ## The task_details should be returned 
+        return HttpResponseRedirect('/complete')
+
+    ## If task is completed, then should be directed to complete.html
+    else:
+        return HttpResponseRedirect('/complete')
+
+
+    
+
+
 
 class TaskCreate(CreateView):
     model = Task

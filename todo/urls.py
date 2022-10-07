@@ -13,10 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from mailbox import MaildirMessage
 from unicodedata import name
 from django.contrib import admin
-from django.urls import path
-from frontend.views import TaskCreate, form,mains,index,login_user ,todos, staff ,forms ,complete, task_form,task_details,pending
+from django.urls import path,include
+from frontend.views import TaskCreate, form,mains,index,login_user ,todos, staff ,forms ,complete, task_form,task_details,pending,register, update_task_status
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +30,9 @@ urlpatterns = [
     path('forms/' , forms , name="forms_page"),
     path('task/form' , TaskCreate.as_view() , name="task.form"),
     path('pending/' , pending , name="pending"),
-    path('task/details/<id>' , task_details , name="task.details"),
+    path('task/details/<id>' , task_details , name="task_details"),
+    path('register/' , register , name="register_page"),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('update/task/status/<id>' ,update_task_status, name= "update.task.status"),
     
 ]

@@ -1,5 +1,5 @@
-from django.db import models
-from django.contrib.auth.models import User
+from django.db import models 
+from django.contrib.auth.models import User 
 
 # Create your models here.
 
@@ -25,12 +25,10 @@ class Task(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     
-
-
-
-
-
-
-
+class SubTask(models.Model):
+    title = models.CharField(max_length=250)
+    content = models.TextField(blank=True)
+    created = models.DateField
+    due_date = models.DateField
 
 

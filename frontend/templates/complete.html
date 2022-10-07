@@ -16,20 +16,16 @@
                     <th class="col-lg-4">Action</th>
                 </tr>
             </thead>
-
             <tbody>
 
+
            {% for todo in todos %}
-
-
            <tr>
-
-            <td>{{ todo.id }}</td>
-            <td>{{ todo.title}}</td>
-            <td>{{todo.due_date}}</td>
-            <td><a href="{% url 'task.details' todo.id %}"class="btn btn-secondary btn-sm">Details</a></td>
-
-        </tr>
+             <td>{{ todo.id }}</td>
+             <td>{{ todo.title}}</td>
+             <td>{{todo.due_date}}</td>
+             <td><a href="{% url 'task_details' todo.id %}"class="btn btn-secondary btn-sm">Details</a></td>
+            </tr>
            {% endfor %}
 
             </tbody>
