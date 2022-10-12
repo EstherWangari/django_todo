@@ -17,7 +17,7 @@ from mailbox import MaildirMessage
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path,include
-from frontend.views import TaskCreate, form,mains,index,login_user ,todos, staff ,forms ,complete, task_form,task_details,pending,register, update_task_status
+from frontend.views import TaskCreate,form,mains,index,login_user ,todos, staff ,forms ,complete, task_form,task_details,pending,register, update_task_status,home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +34,7 @@ urlpatterns = [
     path('register/' , register , name="register_page"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('update/task/status/<id>' ,update_task_status, name= "update.task.status"),
+    path('home/' , home , name="home_page"),
+    
     
 ]

@@ -1,0 +1,23 @@
+
+
+.wrapper{
+    display : flex;
+    width:100%;
+    align-items:stretch;
+
+}
+
+.btn{
+    border-radius: 15px !important;
+}
+.banner{
+    height: 90vh;
+}
+.banner-heading{
+font-size: 4rem;
+font-family: ;
+}
+
+.banner-text{
+
+}

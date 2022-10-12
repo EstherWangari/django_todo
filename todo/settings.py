@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'frontend.apps.FrontendConfig',
+    'todo.apps.TodoConfig'
     
 ]
 
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'todo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['frontend/templates'],
+        'DIRS': ['frontend/templates' , 'todo/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

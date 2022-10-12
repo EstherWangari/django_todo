@@ -15,6 +15,11 @@ from frontend.models import Task
 # Create your views here.
 
 
+def home(request):
+    return render (request, "home.html", {})
+
+
+
 def mains(request):
     return render (request , "main.html", {})
 
