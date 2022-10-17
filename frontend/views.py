@@ -14,6 +14,9 @@ from frontend.models import Task
 
 # Create your views here.
 
+def sidebar (request):
+    return render (request, "sidebar.html" , {})
+
 
 def home(request):
     return render (request, "home.html", {})

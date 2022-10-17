@@ -1,4 +1,6 @@
-{% extends 'layouts/base.html'  %}
+{% extends 'layouts/master.html'  %}
+
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -10,7 +12,21 @@
 
             {% csrf_token %}
 
-         {{form.as_p}}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+          {% endfor %}
+          
+          {% for field in form.visible_fields %}
+
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field|add_class:'form-control' }}
+
+              {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% endfor %}
 
 
             <button class="btn btn-secondary" type="submit">Submit</button>
