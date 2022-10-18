@@ -8,13 +8,13 @@
 
     <ul class="list-unstyled components mt-2">
 
-        <!-- <li class="active">
+          <!-- <li class="active">
 
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><h5>Home</h5></a>
+             <a href="" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><h5>Home</h5></a> 
 
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <ul class="collapse list-unstyled" id="homeSubmenu"> -->
             
-                <li>
+                <!-- <li>
                     <a href="#"  class="dropdown-item">Home 1</a>
                 </li>
 
@@ -24,17 +24,16 @@
 
                 <li>
                     <a href="#" class="dropdown-item">Home 3</a>
-                </li>
+                </li> -->
 
-            </ul>
-        </li> -->
+            <!-- </ul> 
+        </li>   -->
 
        <li class="active">
-                <a href="#"  aria-expanded="false"><h5>Home</h5></a>    
+                <a href="{% url 'dashboard' %}"  aria-expanded="false"><h5>Home</h5></a>    
         </li>
 
-        <!-- <li class="active">
-            <a href="#pageSubmenu" data-toggle="collapse"  aria-expanded="false" class="dropdown-toggle" ><h5>Pages</h5></a>
+            <!-- <a href="#pageSubmenu" data-toggle="collapse"  aria-expanded="false" class="dropdown-toggle" ><h5>Pages</h5></a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="#" class="dropdown-item">Page 1</a>
@@ -47,8 +46,8 @@
                 <li>
                     <a href="#"  class="dropdown-item">Page 3</a>
                 </li>
-            </ul>
-        </li> -->
+            </ul> -->
+    
         
         <li class="active">
             <a href="{% url 'pending' %}"><h5>Pending</h5></a>

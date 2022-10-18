@@ -7,9 +7,6 @@ from django.views.generic.edit import CreateView , UpdateView
 from django.contrib.auth.models import User 
 from django.db import models 
 from django.contrib import messages
-
-
-
 from frontend.models import Task 
 
 # Create your views here.
@@ -17,6 +14,17 @@ from frontend.models import Task
 def sidebar (request):
     return render (request, "sidebar.html" , {})
 
+def dashboard(request):
+
+    pending_count = Task.objects.filter(complete=False).count()
+    complete_count = Task.objects.filter(complete=True).count()
+
+    context = {
+        "pending": pending_count,
+        "complete": complete_count
+
+    }
+    return render (request, "dashboard.html" , context)
 
 def home(request):
     return render (request, "home.html", {})
